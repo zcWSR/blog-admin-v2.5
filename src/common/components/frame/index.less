@@ -1,0 +1,379 @@
+@toggleMenuDuration: 500ms;
+
+.top-bar.ui.icon.menu {
+  height: 61px;
+  background-color: #f0f0f0;
+  left: 199px;
+  right: 0;
+  width: auto;
+  transition: left @toggleMenuDuration ease;
+
+  .username span{
+    font-size: 1.2rem;
+  }
+
+  .item {
+    color: #0067b3;
+
+    &:hover {
+      color: #0284e4;
+      background-color: #fff;
+    }
+  }
+
+  &.toggle {
+    left: 0;
+  }
+}
+
+.nav-menu-title {
+  overflow: hidden;
+  white-space: nowrap;
+  height: 60px;
+  color: #FFF;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  background: url("//qunarzz.com/mobile_ims/prd/static/images/common/icon/b9cc984e.qunar-logo.png") left center  no-repeat;
+  background-size: 36px;
+  background-position: 10px;
+  background-color: #2cc0d8;
+  // background-color: #fdfda5;
+
+  @width: 132px;
+  h1:first-child, h1 {
+    width: @width;
+    margin: 12px 0 0 55px;
+    line-height: 20px;
+    font-size: 14px;
+  }
+
+  h2:first-child, h2 {
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 0 55px;
+    width: @width;
+    border-top: 1px dotted #696969;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 15px;
+  }
+}
+
+
+/* -----------------------------------------------------------------------------
+
+  menu button
+
+----------------------------------------------------------------------------- */
+.btn-toggle-menu {
+  position: fixed;
+  right: 0;
+  top:0;
+  z-index: 120;
+  cursor: pointer;
+}
+
+.ui-button {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  width: 47px;
+  height: 35px;
+  background: #1b1c1d;
+  text-indent: -9999px;
+  transition: background .2s;
+  outline: none;
+
+  span {
+    display: block;
+    position: absolute;
+    top:16px;
+    left: 13px;
+    right: 13px;
+    height: 2px;
+    background: rgba(148, 144, 144, 0.89);
+
+    &::before,
+    &::after {
+      position: absolute;
+      display: block;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: rgba(148, 144, 144, 0.89);
+      content: "";
+    }
+
+    &::before {
+      top: -6px;
+    }
+
+    &::after {
+      bottom: -6px;
+    }
+
+  }
+}
+
+
+
+
+.ui-button-menu {
+  span {
+    transition: background 0s 0.2s;
+
+    &::before,
+    &::after {
+      transition-duration: 0.2s, 0.2s;
+      transition-delay: 0.2s, 0s;
+    }
+
+    &::before {
+      transition-property: top, transform;
+    }
+
+    &::after {
+      transition-property: bottom, transform;
+    }
+  }
+
+  &.is-active span {
+    background: none;
+
+    &::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      bottom: 0;
+      transform: rotate(-45deg);
+    }
+
+    &::before,
+    &::after {
+      transition-delay: 0s, 0.2s;
+    }
+  }
+}
+
+.ui-textbox-input{width: 50px;}
+
+@menuWidth: 200px;
+.ui.left.sidebar.nav-menu {
+  width: @menuWidth;
+  transition: transform @toggleMenuDuration ease;
+
+  .ui.header {
+    margin-left: -5px;
+    margin-right: -5px;
+
+    .icon {
+      float: right;
+      padding-top: 0;
+      font-size: 1.1em;
+    }
+  }
+
+  .item.tree {
+    cursor: pointer;
+    padding: 0.7em;
+    padding-bottom: 0;
+
+    .item {
+      color: hsla(0,0%,100%,.5);
+      font-size: 0.86em;
+
+      .icon {
+        line-height: 1;
+      }
+
+      .item {
+        font-size: 1em;
+      }
+    }
+
+    .icon {
+      position: absolute;
+      top: 1em;
+      line-height: 1;
+    }
+    .text {
+      width: 100%;
+      line-height: 1.5;
+      padding-left: 2em;
+    }
+
+    &:before {
+      display: none;
+    }
+
+    &.return {
+      background-color: rgba(100, 53, 201, 0.2);
+      padding-bottom: 0.7em;
+    }
+  }
+
+  &.toggle {
+    width: 0;
+  }
+}
+
+#page-content {
+  margin-left: @menuWidth;
+  transition: margin-left @toggleMenuDuration ease;
+
+  &.toggle {
+    margin-left: 0;
+  }
+}
+
+.main {
+  padding: 60px 40px 40px 40px;
+}
+.fullscreen {
+  padding: 23px 0 0 0;
+}
+.page{
+  padding-top: 40px;
+}
+.iframe-export {
+  display: none;
+}
+
+.ui.form textarea{
+  height: 4em;
+  min-height: 4em;
+}
+.ui.inline .hotelLists{
+  height: 8em;
+  min-height: 8em;
+}
+
+.progress-bar {
+  margin-top: 1em!important;
+}
+
+.upload-tips {
+  min-height: 2em;
+  margin-bottom: 1em!important;
+}
+
+.close-tips {
+  float: right;
+}
+.form-multi-operate .item-title {
+  width: 7em !important;
+  margin-right: 0!important;
+}
+
+.other-reason {
+  font-size: 1em!important;
+}
+
+.moxie-shim {
+  z-index: 999999!important;
+}
+
+.ui.selection.dropdown {
+  min-width: 0;
+}
+
+.ui.dropdown.rejudgeReason, .ui.dropdown.modal-commute-commuteReason{
+  width: 120px!important;
+}
+
+td,th {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.datepicker-input {
+  position: relative;
+}
+
+.ui.fluid.popup.datepicker-panel-wrap {
+  width: 300px;
+  .column {
+    padding: 0.25em 0;
+
+    &.weekend {
+      color: #db2828;
+    }
+
+    &.unselectable {
+      opacity: 0.4;
+    }
+
+    &.today {
+      color: #6435C9;
+    }
+
+    &.current-day {
+      font-weight: bold;
+      font-size: 1.25em;
+    }
+  }
+  .row {
+
+    &.control-header {
+      font-size: 1.5em;
+
+      .arrow {
+        cursor: pointer;
+      }
+
+    }
+
+    &.day-names {
+      font-weight: bold;
+    }
+
+    &.days {
+
+      .column {
+        cursor: pointer;
+      }
+
+    }
+
+    padding: 0 0;
+  }
+}
+.react-ani-height-enter {
+  max-height: 0;
+}
+
+.react-ani-height-enter.react-ani-height-enter-active {
+  max-height: 1000px;
+  transition: 500ms ease-in;
+}
+
+.react-ani-height-leave {
+  max-height: 1000px;
+}
+
+.react-ani-height-leave.react-ani-height-leave-active {
+  max-height: 0;
+  transition: 300ms;
+}
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

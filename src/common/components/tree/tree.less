@@ -1,0 +1,87 @@
+.tree {
+  padding: 5px;
+  min-height: 250px;
+  .tree-header {
+    padding: 10px 10px 10px 0;
+    font-size: 20px;
+    .item {
+      padding: 0 5px;
+      display: inline-block;
+    }
+    &>.items {
+      float: right;
+      .item {
+        border-left: 2px rgba(0, 0, 0, 0.1) solid;
+      }
+    }
+    &>.item {
+      border-left: none;
+    }
+
+  }
+  &.dark {
+    .tree-header .items .item {
+      border-left: 2px rgba(255, 255, 255, 0.5) solid;
+    }
+    .node-info {
+      border: 2px rgba(255, 255, 255, 0.3) solid;
+    }
+  }
+}
+
+.tree-node {
+  border-right: 0;
+  margin-bottom: 5px;
+  // &:first-child {
+  //   margin-top: 5px;
+  // }
+  // &:last-child {
+  //   margin-bottom: 10px;
+  // }
+}
+
+.node-info {
+  padding: 2px 5px;
+  cursor: pointer;
+  &:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  border: 1px rgba(0,0,0,0.2) solid;
+  border-radius: 3px;
+  .info {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1.5;
+    // margin-right: 20px;
+    &:last-child {
+      margin-right: 0;
+    }
+    .name {
+      margin: 0 5px;
+    }
+  }
+  .icon.caret {
+    transition: transform .3s;
+    transform-origin: 45% 75%;
+    &.show {
+      transform: rotate(90deg);
+    }
+  }
+
+  .ui.loader {
+    vertical-align: text-bottom;
+    margin-left: 10px;
+  }
+  .other-infos {
+    float: right;
+  }
+}
+
+.child-container {
+  height: 0;
+  overflow: hidden;
+  transition: height .3s;
+  &>.child-nodes {
+    margin: 5px 0 0 20px;
+  }
+}

@@ -1,0 +1,8 @@
+/.tmp/**
+/docs/**
+/mock/**
+/prd/**
+/node_modules/**
+
+/page-demo/**
+newpage.js
