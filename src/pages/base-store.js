@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 
-class BaseStore {
+export default class BaseStore {
   @observable activeIndex = 0;
   @observable fullscreen = false;
 
@@ -9,5 +9,3 @@ class BaseStore {
     this.activeIndex = index;
   }
 }
-
-export default new BaseStore();

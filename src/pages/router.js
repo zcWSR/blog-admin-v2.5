@@ -7,14 +7,16 @@ import Login from './login';
 import NotFound from './not-found';
 
 export default props => (
-  <Router {...props} >
-    <Frame>
-      <Switch>
-        <Route exact path="/" component={DashBoard} />
-        <Route path="/dashboard" component={DashBoard} />
-        <Route path='/login' component={Login} />
-        <Route component={NotFound} />
-      </Switch>
-    </Frame>
-  </Router>
+  <div>
+    <Router {...props} >
+      <Frame>
+        <Switch>
+          <Route exact path="/" component={DashBoard} />
+          <Route path="/dashboard" component={DashBoard} />
+          <Route path='/login' component={Login} />
+          <Route component={NotFound} />
+        </Switch>
+      </Frame>
+    </Router>
+  </div>
 );

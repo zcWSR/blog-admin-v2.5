@@ -34,7 +34,8 @@ export default class Store {
 
   @action('获取随机名言')
   async getMotto() {
-    const meta = await axios('/api/blog/admin/motto');
+    let meta = await axios('/api/blog/admin/motto');
+    meta = meta.data;
     runInAction('set motto', () => {
       if (meta.ret) {
         this.motto = meta.data;

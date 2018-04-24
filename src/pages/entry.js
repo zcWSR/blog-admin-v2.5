@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
-import DevTools from 'mobx-react-devtools';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { createHashHistory } from 'history';
 
@@ -24,14 +23,9 @@ const hashHistory = createHashHistory();
 const history = syncHistoryWithStore(hashHistory, routingStore);
 
 ReactDOM.render(
-  <div>
-    <DevTools />
-    <div>
-      <Provider {...stores}>
-        <AppRouter history={history} />
-      </Provider>
-    </div>
-  </div>
+  <Provider {...stores}>
+    <AppRouter history={history} />
+  </Provider>
   ,
   document.getElementById('app')
 );

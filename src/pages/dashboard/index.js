@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import DevTools from 'mobx-react-devtools';
 import Store from './store';
-// import classnames from 'classnames';
 
+// import classnames from 'classnames';
 import './index.less';
 
-@observer
 @inject('base')
+@observer
 export default class DashBoard extends Component {
   constructor() {
     super();
+    document.title = 'dashboard';
     this.store = new Store();
     this.store.init();
   }
   componentDidMount() {
+    console.log(this.props.base.activeIndex);
     this.props.base.changeActiveIndex(1);
   }
   render() {
@@ -22,6 +25,7 @@ export default class DashBoard extends Component {
 
     return (
       <div className="ui grid dashboard">
+        <DevTools />
         <div className="row topbar">
           <div className="ten wide column">
             <i className={`icon ${topIcon}`} />
