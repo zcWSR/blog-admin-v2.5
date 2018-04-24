@@ -34,7 +34,7 @@ export default (packing) => {
       'echarts',
       'moment',
       'tiny-cookie',
-      'axios',
+      'axios'
     ]
   };
 
@@ -53,9 +53,9 @@ export default (packing) => {
 
   p.rewriteRules = {
     // 网站URL与模版的对应路由关系
-    '^/$': '/base/index.html',
+    '^/$': '/index.html',
     // API转发
-    '^/api/(.*)': 'http://zcwsr.com:2333'
+    '^/api/(.*)': 'http://zcwsr.com:2333/$1'
   };
 
   return p;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import { Link } from 'react-router-dom';
 
 export default class Menu extends Component {
   constructor() {
@@ -12,57 +13,47 @@ export default class Menu extends Component {
             {
               id: 1,
               text: 'DASHBOARD',
-              url: '/fe/dashboard'
+              url: '/dashboard'
             }
-            // ,{
-            //   id: 2,
-            //   text: '我的Job',
-            //   url: '/fe/my-job'
-            // }
           ]
         },
         {
-          text: '基础信息管理',
+          text: '博文',
           children: [
             {
               id: 11,
-              text: '基础信息',
-              url: '/fe/basic-info'
+              text: '博文管理',
+              url: '/posts'
             },
             {
               id: 12,
-              text: '创建Job',
-              url: '/fe/create-job'
+              text: '创建博文',
+              url: '/create-post'
             }
           ]
         },
         {
-          text: '任务管理',
+          text: '图片',
           children: [
             {
               id: 21,
-              text: '任务队列管理',
-              url: '/fe/task-manage/queue'
-            },
-            {
-              id: 22,
-              text: '任务执行管理',
-              url: '/fe/task-manage/running'
-            },
-            {
-              id: 23,
-              text: '历史记录管理',
-              url: '/fe/task-manage/history'
+              text: '图片管理',
+              url: '/images'
             }
           ]
         },
         {
-          text: '任务统计',
+          text: '小文章',
           children: [
             {
               id: 31,
-              text: '未完成统计查询',
-              url: '/fe/task-manage/unfinished'
+              text: '文章管理',
+              url: '/articles'
+            },
+            {
+              id: 32,
+              text: '创建文章',
+              url: '/create-article'
             }
           ]
         }
@@ -84,9 +75,9 @@ export default class Menu extends Component {
           );
         }
         return (
-          <a className={itemClz} key={item.id} href={item.url}>
+          <Link className={itemClz} key={item.id} to={item.url}>
             {item.text}
-          </a>
+          </Link>
         );
       });
       return (
@@ -110,8 +101,8 @@ export default class Menu extends Component {
     return (
       <div className={classNames}>
         <div className="nav-menu-title">
-          <h1>大住宿任务调度系统</h1>
-          <h2>DZS TASK DISPATCH SYS</h2>
+          <h1>博客管理系统</h1>
+          <h2>{'blog manage system'.toLocaleUpperCase()}</h2>
         </div>
         {this.props.hideMenu || content}
       </div>

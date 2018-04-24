@@ -27,6 +27,10 @@
 }
 
 .nav-menu-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   white-space: nowrap;
   height: 60px;
@@ -35,7 +39,6 @@
   font-weight: bold;
   text-align: center;
   width: 100%;
-  background: url("//qunarzz.com/mobile_ims/prd/static/images/common/icon/b9cc984e.qunar-logo.png") left center  no-repeat;
   background-size: 36px;
   background-position: 10px;
   background-color: #2cc0d8;
@@ -44,16 +47,15 @@
   @width: 132px;
   h1:first-child, h1 {
     width: @width;
-    margin: 12px 0 0 55px;
+    margin-bottom: 5px;
     line-height: 20px;
     font-size: 14px;
   }
 
   h2:first-child, h2 {
     color: rgba(255, 255, 255, 0.5);
-    margin: 0 0 0 55px;
+    margin: 0;
     width: @width;
-    border-top: 1px dotted #696969;
     font-size: 12px;
     font-weight: normal;
     line-height: 15px;

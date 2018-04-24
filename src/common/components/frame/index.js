@@ -27,12 +27,18 @@ class Frame extends Component {
     const pageContentClz = classnames('main pusher', { toggle: this.state.toggle, fullscreen: this.props.fullscreen });
     return (
       <div>
-        <TopBar toggle={this.state.toggle} onToggleBtnClick={this.toggle} />
-        <Menu
-          activeIndex={this.props.activeIndex}
-          toggle={this.state.toggle}
-          hideMenu={this.props.hideMenu}
-        />
+        {
+          this.props.fullscreen ||
+            <TopBar toggle={this.state.toggle} onToggleBtnClick={this.toggle} />
+        }
+        {
+          this.props.fullscreen ||
+            <Menu
+              activeIndex={this.props.activeIndex}
+              toggle={this.state.toggle}
+              hideMenu={this.props.hideMenu}
+            />
+        }
         <section id="page-content" className={pageContentClz}>
           {this.props.children}
         </section>

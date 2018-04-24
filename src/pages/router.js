@@ -1,8 +1,20 @@
 import React from 'react';
-import { Router, Route } from 'react-router';
+import { Router, Route, Switch } from 'react-router-dom';
 
-export default () => props => (
+import Frame from './frame-wrapper';
+import DashBoard from './dashboard';
+import Login from './login';
+import NotFound from './not-found';
+
+export default props => (
   <Router {...props} >
-    <Route path="/" component="" />
+    <Frame>
+      <Switch>
+        <Route exact path="/" component={DashBoard} />
+        <Route path="/dashboard" component={DashBoard} />
+        <Route path='/login' component={Login} />
+        <Route component={NotFound} />
+      </Switch>
+    </Frame>
   </Router>
 );

@@ -28,14 +28,6 @@ export default class TopBar extends Component {
     const username = cookie.get('qsso_user_name');
     if (username) {
       this.setState({ username });
-    } else {
-      axios('/x3/api/user/getLoginUser')
-      .then(meta => meta.data)
-      .then(
-      (newUsername) => {
-        this.setState({ username: newUsername });
-        cookie.set('qsso_user_name', newUsername, { expires: (new Date(32524724988935)).toGMTString() });
-      });
     }
   }
 
