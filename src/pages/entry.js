@@ -8,15 +8,12 @@ import 'common/styles/semantic.css';
 import 'common/styles/common.less';
 import 'common/styles/google-fonts.css';
 
-import BaseStore from './base-store';
 import AppRouter from './router';
+import getStores from './stores';
 
 const routingStore = new RouterStore();
 
-const stores = {
-  routing: routingStore,
-  base: new BaseStore()
-};
+const stores = getStores(routingStore);
 
 const hashHistory = createHashHistory();
 
