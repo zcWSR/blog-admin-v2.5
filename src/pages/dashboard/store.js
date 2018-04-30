@@ -42,8 +42,7 @@ export default class Store {
 
   @action('获取随机名言')
   async getMotto() {
-    let meta = await axios('/api/blog/admin/motto');
-    meta = meta.data;
+    const meta = await axios('/api/blog/admin/motto');
     runInAction('set motto', () => {
       if (meta.ret) {
         this.motto = meta.data;
@@ -53,8 +52,7 @@ export default class Store {
 
   @action('获取浏览次数')
   async getViewData() {
-    let meta = await axios('api/blog/admin/report');
-    meta = meta.data;
+    const meta = await axios('api/blog/admin/report');
     runInAction('set view data', () => {
       if (meta.ret) {
         this.totalView = meta.data.all;
@@ -65,8 +63,7 @@ export default class Store {
 
   @action('获取服务器状态')
   async getServerStatus() {
-    let meta = await axios('api/blog/admin/server-status');
-    meta = meta.data;
+    const meta = await axios('api/blog/admin/server-status');
     runInAction('set server status', () => {
       if (meta.ret) {
         this.cpu = meta.data.cpu;
@@ -78,8 +75,7 @@ export default class Store {
 
   @action('获取浏览数排行')
   async getViewRank() {
-    let meta = await axios('api/blog/admin/view-rank');
-    meta = meta.data;
+    const meta = await axios('api/blog/admin/view-rank');
     runInAction('set view rank', () => {
       if (meta.ret) {
         this.viewRank = meta.data;

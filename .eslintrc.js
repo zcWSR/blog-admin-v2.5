@@ -11,6 +11,7 @@ module.exports = {
     'react/no-string-refs': 0,
     'react/no-find-dom-node': 0,
     'react/no-array-index-key': 0,
-    'react/jsx-no-target-blank': 0
+    'react/jsx-no-target-blank': 0,
+    'jsx-a11y/label-has-for': 0
   }
 };

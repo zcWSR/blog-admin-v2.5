@@ -23,7 +23,7 @@ export default class Menu extends Component {
             {
               id: 11,
               text: '博文管理',
-              url: '/posts'
+              url: '/post-manage'
             },
             {
               id: 12,
@@ -48,7 +48,7 @@ export default class Menu extends Component {
             {
               id: 31,
               text: '文章管理',
-              url: '/articles'
+              url: '/article-manage'
             },
             {
               id: 32,

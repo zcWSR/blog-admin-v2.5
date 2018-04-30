@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import DevTools from 'mobx-react-devtools';
 
 import Loading from 'common/components/loading';
 import RankTable from './rank-table';
@@ -38,7 +37,6 @@ export default class DashBoard extends Component {
 
     return (
       <div className="ui grid dashboard">
-        <DevTools />
         <div className="row topbar">
           <div className="ten wide column">
             <i className={`icon ${topIcon}`} />

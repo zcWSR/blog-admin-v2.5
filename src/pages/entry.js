@@ -4,6 +4,7 @@ import { Provider } from 'mobx-react';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { createHashHistory } from 'history';
 
+import 'common/utils/axios-config.js';
 import 'common/styles/semantic.css';
 import 'common/styles/common.less';
 import 'common/styles/google-fonts.css';
