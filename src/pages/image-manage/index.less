@@ -1,0 +1,103 @@
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-bottom: 10px;
+  .image {
+    height: 150px;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    margin: 10px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .25);
+    img {
+      height: inherit;
+    }
+    .mask {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, .5);
+      .mask-content {
+        margin-bottom: 5px;
+        cursor: pointer;
+        color: white;
+        font-size: 1rem;
+      }
+    }
+    .mask.stay {
+      display: flex;
+      .mask-content {
+        font-size: 40px;
+        transform: translateY(25%); // 让选中图标居中, 不加就歪了, 不知道为啥
+      }
+    }
+  }
+  .image:hover {
+    .mask {
+      display: flex;
+    }
+  }
+}
+
+.image-info-modal {
+  display: flex;
+  flex-direction: column;
+  .image {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    align-self: center;
+    height: 40vh;
+    img {
+      height: auto;
+      width: auto;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+  .image-info {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    .info-name {
+      display: inline-block;
+      font-weight: 700;
+      width: 120px;
+    }
+    .tip {
+      display: none;
+      position: absolute;
+      background: rgba(0, 0, 0, .5);
+      border-radius: 5px;
+      color: white;
+      padding: 2px;
+      left: 50%;
+      bottom: 100%;
+      transform: translateX(-50%);
+    }
+
+    .image-link {
+      cursor: pointer;
+    }
+  }
+  .image-info:hover {
+    .tip {
+      display: inline-block;
+    }
+  }
+
+  .for-copy {
+    height: 0;
+    width: 0;
+  }
+}

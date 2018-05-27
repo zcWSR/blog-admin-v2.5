@@ -63,7 +63,7 @@ export default class PostManage extends Component {
     msgbox.showMessage((
       <div>
         <p>{`文章: ${post.title}`}</p>
-        <p>{`是否确认${post.lock ? '解除' : ''}锁定?`}</p>
+        <p>{`确认${post.lock ? '解除' : ''}锁定?`}</p>
       </div>
     ), '确认')
     .ok(() => {
@@ -81,7 +81,8 @@ export default class PostManage extends Component {
       });
       this.doSearch();
     } catch (e) {
-      this.setState({ loading: true });
+      console.log(e);
+      this.setState({ loading: false });
     }
   }
 

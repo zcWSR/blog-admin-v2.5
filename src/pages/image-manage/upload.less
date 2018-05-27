@@ -1,0 +1,60 @@
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  .upload-list {
+    height: 40vh;
+    overflow-y: scroll;
+    border: 1px solid rgba(0, 0, 0, .25);
+    border-radius: 5px;
+    .upload-image {
+      display: flex;
+      position: relative;
+      padding: 10px;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0, 0, 0, .15);
+      .percent-mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transition: width .3s ease-in-out;
+        background: rgba(32, 186, 68, 0.25);
+        z-index: 1;
+      }
+      .error {
+        background: rgb(208, 25, 25, 0.25);
+      }
+      .right-section {
+        display: flex;
+        flex-direction: row;
+        .upload-percent {
+          margin-right: 10px;
+        }
+        .remove {
+          cursor: pointer;
+        }
+      }
+    }
+    .upload-image:hover {
+      background: rgba(0, 0, 0, .05);
+    }
+    .upload-image:last-child {
+      border-bottom: none;
+    }
+  }
+  .actions {
+    display: flex;
+    flex-direction: row;
+    .button {
+      flex: 0 0 auto;
+    }
+    .button:first-child {
+      margin-left: 0;
+    }
+
+    .for-upload {
+      display: none;
+    }
+  }
+}

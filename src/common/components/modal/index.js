@@ -136,7 +136,7 @@ class Modal extends Component {
           {header}
         </div>
         {/* <div className="content" style={{ maxHeight: '65vh', overflow: 'scroll' }}> */}
-        <div className="content" style={{ maxHeight: '65vh', overflow: 'scroll' }}>
+        <div className="content" style={{ maxHeight: '65vh' }}>
           {content}
         </div>
         {this.renderFooter()}

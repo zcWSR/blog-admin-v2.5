@@ -38,7 +38,7 @@ export default class Menu extends Component {
             {
               id: 21,
               text: '图片管理',
-              url: '/images'
+              url: '/image-manage'
             }
           ]
         },
@@ -54,6 +54,21 @@ export default class Menu extends Component {
               id: 32,
               text: '创建文章',
               url: '/create-article'
+            }
+          ]
+        },
+        {
+          text: '用户及参数',
+          children: [
+            {
+              id: 41,
+              text: '用户管理',
+              url: '/user-manage'
+            },
+            {
+              id: 42,
+              text: '博客参数管理',
+              url: '/blog-manage'
             }
           ]
         }

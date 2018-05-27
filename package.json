@@ -21,6 +21,7 @@
     "axios": "^0.16.1",
     "babel-plugin-react-transform": "^2.0.2",
     "classnames": "^2.2.5",
+    "clipboard-copy": "^2.0.0",
     "echarts": "^4.0.4",
     "element-resize-event": "^2.0.9",
     "history": "^4.7.2",

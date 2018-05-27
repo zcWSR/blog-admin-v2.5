@@ -6,15 +6,15 @@ import msgbox from 'common/components/message-box';
 import Loading from 'common/components/loading';
 
 
-import EditPost from '../edit-post';
+import EditArticle from '../edit-article';
 
 @inject('base', 'routing')
 @observer
-export default class CreatePost extends Component {
+export default class CreateArticle extends Component {
   constructor(props) {
     super(props);
-    document.title = '创建博文';
-    props.base.changeActiveIndex(12);
+    document.title = '创建小文章';
+    props.base.changeActiveIndex(32);
     this.state = { loading: false };
   }
 
@@ -34,7 +34,7 @@ export default class CreatePost extends Component {
       this.setState({ loading: true });
       await axios({
         method: 'POST',
-        url: '/api/blog/posts/upload',
+        url: '/api/blog/article/upload',
         data: {
           post: data
         }
@@ -45,7 +45,7 @@ export default class CreatePost extends Component {
         </div>
       ), '提示')
       .ok(() => {
-        this.props.routing.push('/post-manage');
+        this.props.routing.push('/article-manage');
       });
     } catch (e) {
       console.log(e);
@@ -57,8 +57,8 @@ export default class CreatePost extends Component {
   render() {
     return (
       <div>
-        <h3 className="ui header">新建博客文章</h3>
-        <EditPost new submit={data => this.doSubmit(data)} />
+        <h3 className="ui header">新建小文章</h3>
+        <EditArticle new submit={data => this.doSubmit(data)} />
         <Loading show={this.state.loading} />
       </div>
     );
