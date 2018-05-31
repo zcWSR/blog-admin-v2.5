@@ -108,25 +108,27 @@ export default class ImageManage extends Component {
           <img src={`${image.url}-normal`} alt={image.name} />
         </a>
         <div className="ui divider" />
-        <p className="image-info">
-          <span className="info-name">图片名称:</span>
-          {image.name}
-        </p>
-        <p className="image-info">
-          <span className="info-name">原图分辨率:</span>
-          {`${image.height} x ${image.width}`}
-        </p>
-        <p className="image-info">
-          <span className="info-name">原图大小:</span>
-          {`约${this.getImageSize(image.size)} (${image.size}字节)`}
-        </p>
-        <p className="image-info">
-          <span className="info-name">图片外链(压缩后):</span>
-          <span className="tip">点击复制</span>
-          <a className="image-link" onClick={() => this.copyImageUrl(`${image.url}-normal`)}>
-            {`${image.url}-normal`}
-          </a>
-        </p>
+        <div className="image-info-container">
+          <p className="image-info">
+            <span className="info-name">图片名称:</span>
+            {image.name}
+          </p>
+          <p className="image-info">
+            <span className="info-name">原图分辨率:</span>
+            {`${image.height} x ${image.width}`}
+          </p>
+          <p className="image-info">
+            <span className="info-name">原图大小:</span>
+            {`约${this.getImageSize(image.size)} (${image.size}字节)`}
+          </p>
+          <p className="image-info">
+            <span className="info-name">图片外链(压缩后):</span>
+            <span className="tip">点击复制</span>
+            <a className="image-link" onClick={() => this.copyImageUrl(`${image.url}-normal`)}>
+              {`${image.url}-normal`}
+            </a>
+          </p>
+        </div>
       </div>,
       '图片详情'
     );
@@ -226,7 +228,7 @@ export default class ImageManage extends Component {
         <div className="image-container">
           {images.map((item, index) => {
             const maskClz = cn('mask', { stay: item.select });
-            const imageWidth = 150 * (item.width / item.height);
+            const imageWidth = (150 * (item.width / item.height)) - 1;
             return (
               <div key={`image_${index}`} className="image" style={{ width: imageWidth }}>
                 {selectMode ? (

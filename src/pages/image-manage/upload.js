@@ -119,6 +119,7 @@ export default class Upload extends Component {
                   {image.status === 0 ? (
                     <i className="remove icon" onClick={() => this.removeFile(index)} />
                   ) : null}
+                  {image.status === 1 ? '缓存到图床中' : null}
                   {image.status === 2 ? <i className="check icon" /> : null}
                 </div>
               </div>

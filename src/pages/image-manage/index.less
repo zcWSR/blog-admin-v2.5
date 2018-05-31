@@ -15,7 +15,9 @@
       height: inherit;
     }
     .mask {
-      display: none;
+      display: flex;
+      opacity: 0;
+      transition: opacity .3s ease-in-out;
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -33,7 +35,7 @@
       }
     }
     .mask.stay {
-      display: flex;
+      opacity: 1;
       .mask-content {
         font-size: 40px;
         transform: translateY(25%); // 让选中图标居中, 不加就歪了, 不知道为啥
@@ -42,7 +44,7 @@
   }
   .image:hover {
     .mask {
-      display: flex;
+      opacity: 1;
     }
   }
 }
@@ -65,34 +67,38 @@
       max-height: 100%;
     }
   }
-  .image-info {
-    display: flex;
-    position: relative;
-    flex-direction: row;
-    .info-name {
-      display: inline-block;
-      font-weight: 700;
-      width: 120px;
+  .image-info-container {
+    max-height: 120px;
+    overflow-y: scroll;
+    .image-info {
+      display: flex;
+      position: relative;
+      flex-direction: row;
+      .info-name {
+        display: inline-block;
+        font-weight: 700;
+        width: 120px;
+      }
+      .tip {
+        display: none;
+        position: absolute;
+        background: rgba(0, 0, 0, .5);
+        border-radius: 5px;
+        color: white;
+        padding: 2px;
+        left: 50%;
+        bottom: 100%;
+        transform: translateX(-50%);
+      }
+  
+      .image-link {
+        cursor: pointer;
+      }
     }
-    .tip {
-      display: none;
-      position: absolute;
-      background: rgba(0, 0, 0, .5);
-      border-radius: 5px;
-      color: white;
-      padding: 2px;
-      left: 50%;
-      bottom: 100%;
-      transform: translateX(-50%);
-    }
-
-    .image-link {
-      cursor: pointer;
-    }
-  }
-  .image-info:hover {
-    .tip {
-      display: inline-block;
+    .image-info:hover {
+      .tip {
+        display: inline-block;
+      }
     }
   }
 
