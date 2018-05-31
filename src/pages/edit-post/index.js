@@ -67,10 +67,11 @@ export default class EditPost extends Component {
   @autobind
   checkLabel(event) {
     const content = event.target.value;
-    if (content && content.charAt(content.length - 1) === ';') {
-      const label = content.slice(0, content.length - 1);
-      this.post.labels.push(label);
-      event.target.value = '';
+    if (event.keyCode === 13 && content) {
+      if (this.post.labels.indexOf(content) === -1) {
+        this.post.labels.push(content);
+        event.target.value = '';
+      }
     }
   }
 
@@ -118,14 +119,14 @@ export default class EditPost extends Component {
             <div className="field">
               <input
                 ref={'label'}
-                onChange={this.checkLabel}
+                onKeyUp={this.checkLabel}
                 style={{ width: '150px' }}
               />
             </div>
             <div className="ui labels blue">
               {
                 this.post.labels.map((l, i) => (
-                  <div className="ui label" key={`label-${i}`}>
+                  <div className="ui label" style={{ marginBottom: 0 }} key={`label-${i}`}>
                     {l}
                     <i className="delete icon" onClick={() => this.removeLabel(i)} />
                   </div>
