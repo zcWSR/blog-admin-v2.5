@@ -29,6 +29,7 @@ export default class PostManage extends Component {
   }
 
   componentDidMount() {
+    this.doSearch();
   }
 
   @autobind
@@ -55,7 +56,7 @@ export default class PostManage extends Component {
 
   @autobind
   edit(post) {
-    this.props.routing.push(`/edit-post/${post.id}`);
+    this.props.routing.push(`/modify-post/${post.id}`);
   }
 
   @autobind

@@ -4,9 +4,7 @@ import axios from 'axios';
 
 import msgbox from 'common/components/message-box';
 import Loading from 'common/components/loading';
-
-
-import EditArticle from '../edit-article';
+import EditArticle from 'common/components/edit-article';
 
 @inject('base', 'routing')
 @observer
