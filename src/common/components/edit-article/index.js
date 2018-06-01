@@ -4,6 +4,8 @@ import { observer } from 'mobx-react';
 import SimpleMDE from 'simplemde';
 import autobind from 'autobind-decorator';
 
+import msgbox from 'common/components/message-box';
+
 import 'simplemde/dist/simplemde.min.css';
 import './index.less';
 
@@ -44,7 +46,7 @@ export default class EditArticle extends Component {
   loadArticle(article) {
     if (!this.loaded) {
       this.article = article;
-      this.mde.value = article.content;
+      this.mde.value(article.content);
       this.loaded = true;
     }
   }
@@ -83,6 +85,28 @@ export default class EditArticle extends Component {
       const { title, route, shortName, bgColor, bgUrl } = this.article;
       this.props.submit({ title, route, shortName, bgColor, bgUrl, content });
     }
+  }
+
+  @autobind
+  uploadFile() {
+    this.refs.uploadFile.click();
+  }
+
+  @autobind
+  doUploadFile(e) {
+    const file = e.target.files[0];
+    if (file.type !== 'text/markdown') {
+      msgbox.showMessage('格式不正确', '提示');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.mde.value(reader.result);
+    };
+    reader.onerror = (err) => {
+      msgbox.showMessage(err.toString() || '读取文件出错', '错误');
+    };
+    reader.readAsText(file);
   }
 
   render() {
@@ -158,7 +182,12 @@ export default class EditArticle extends Component {
             </div>
           </div>
         </div>
-        <div >
+        <div className="inline fields">
+          <button className="ui button primary" onClick={this.uploadFile}>从文件上传文档</button>
+          <button className="ui button red" onClick={() => { this.mde.value(''); }}>清空</button>
+          <input ref={'uploadFile'} className="for-upload" type="file" onChange={this.doUploadFile} />
+        </div>
+        <div className="editor-container">
           <textarea ref={'editor'} />
         </div>
         {

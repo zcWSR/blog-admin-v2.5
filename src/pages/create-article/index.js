@@ -34,7 +34,7 @@ export default class CreateArticle extends Component {
         method: 'POST',
         url: '/api/blog/article/upload',
         data: {
-          post: data
+          article: data
         }
       });
       msgbox.showMessage((

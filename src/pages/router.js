@@ -8,6 +8,7 @@ import CreatePost from './create-post';
 import ModifyPost from './modify-post';
 import ArticleMange from './article-manage';
 import CreateArticle from './create-article';
+import ModifyArticle from './modify-article';
 import ImageManage from './image-manage';
 import UserManage from './user-manage';
 import BlogManage from './blog-manage';
@@ -31,6 +32,7 @@ export default props => (
               <Route path="/modify-post/:id" component={ModifyPost} />
               <Route exact path="/article-manage" component={ArticleMange} />
               <Route exact path="/create-article" component={CreateArticle} />
+              <Route path="/modify-article/:id" component={ModifyArticle} />
               <Route exact path="/image-manage" component={ImageManage} />
               <Route exact path="/user-manage" component={UserManage} />
               <Route exact path="/blog-manage" component={BlogManage} />

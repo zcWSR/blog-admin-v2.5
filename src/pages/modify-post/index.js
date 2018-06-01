@@ -12,7 +12,7 @@ export default class ModifyPost extends Component {
   constructor(props) {
     super(props);
     document.title = '修改博文';
-    props.base.changeActiveIndex(12);
+    props.base.changeActiveIndex(0);
     this.state = { loading: false, post: null };
     this.id = this.props.match.params.id;
     if (!this.id) {
@@ -28,21 +28,23 @@ export default class ModifyPost extends Component {
   }
 
   componentDidMount() {
-    this.fetchPost();
+    if (this.id) {
+      this.fetchPost();
+    }
   }
 
   doSubmit(data) {
     msgbox.showMessage((
       <div>
-        <p>{`是否确认修改文章: <${data.title}>?`}</p>
+        <p>{`是否确认修改文章: < ${data.title} >?`}</p>
       </div>
     ), '确认')
     .ok(() => {
-      this.doUpload(data);
+      this.doUpdate(data);
     });
   }
 
-  async doUpload(data) {
+  async doUpdate(data) {
     try {
       this.setState({ loading: true });
       console.log(data);
