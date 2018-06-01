@@ -9,6 +9,9 @@ import 'common/styles/semantic.css';
 import 'common/styles/common.less';
 import 'common/styles/google-fonts.css';
 
+import 'common/styles/markdown.css';
+import 'simplemde/dist/simplemde.min.css';
+
 import AppRouter from './router';
 import getStores from './stores';
 

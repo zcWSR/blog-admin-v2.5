@@ -6,7 +6,6 @@ import autobind from 'autobind-decorator';
 
 import msgbox from 'common/components/message-box';
 
-import 'simplemde/dist/simplemde.min.css';
 import './index.less';
 
 @observer
@@ -19,6 +18,8 @@ export default class EditArticle extends Component {
         uniqueId: this.props.new ? 'newArticle' : 'modifyArticle',
         delay: 1000
       },
+      placeholder: '在此输入内容',
+      toolbarTips: true,
       spellChecker: false
     });
   }
@@ -84,6 +85,7 @@ export default class EditArticle extends Component {
       const content = this.mde.value();
       const { title, route, shortName, bgColor, bgUrl } = this.article;
       this.props.submit({ title, route, shortName, bgColor, bgUrl, content });
+      this.mde.clearAutosavedValue();
     }
   }
 
