@@ -43,50 +43,45 @@ export default class Upload extends Component {
   }
 
   @action
-  upload() {
+  async upload() {
+    runInAction(() => { this.uploading = true; });
     this.uploading = true;
     const promises = this.formDatas.map((file, index) => this.uploadOne(file, index));
-    axios.all(promises).then(
-      axios.spread(() => {
-        runInAction(() => {
-          this.uploading = false;
-          console.log('all done');
-        });
-      })
-    );
+    await Promise.all(promises);
+    console.log('all done');
+    runInAction(() => { this.uploading = false; });
   }
 
   @action
   uploadOne(file, index) {
-    this.images[index].status = 1;
-    const data = new FormData();
-    data.append('img', file);
-    axios
-      .post('/api/blog/img/upload', data, {
-        headers: { 'content-type': 'multiple/form-data' },
-        onUploadProgress: (e) => {
-          const uploaded = e.loaded;
-          const total = e.total;
-          const process = uploaded / total;
-          console.log(process);
-          runInAction(() => {
-            this.images[index].process = process;
+    return new Promise((resolve, reject) => {
+      this.images[index].status = 1;
+      const data = new FormData();
+      data.append('img', file);
+      runInAction(() => {
+        axios
+          .post('/api/blog/img/upload', data, {
+            headers: { 'content-type': 'multiple/form-data' },
+            onUploadProgress: (e) => {
+              const uploaded = e.loaded;
+              const total = e.total;
+              const process = uploaded / total;
+              this.images[index].process = process;
+            }
+          })
+          .then(() => {
+            this.images[index].process = 1;
+            this.images[index].status = 2;
+            resolve();
+          })
+          .catch((err) => {
+            this.images[index].status = -1;
+            this.images[index].errmsg = err.errmsg;
+            console.log(err);
+            reject();
           });
-        }
-      })
-      .then(() => {
-        runInAction(() => {
-          this.images[index].process = 1;
-          this.images[index].status = 2;
-        });
-      })
-      .catch((err) => {
-        runInAction(() => {
-          this.images[index].status = -1;
-          this.images[index].errmsg = err.errmsg;
-          console.log(err);
-        });
       });
+    });
   }
 
   @action
@@ -119,7 +114,7 @@ export default class Upload extends Component {
                   {image.status === 0 ? (
                     <i className="remove icon" onClick={() => this.removeFile(index)} />
                   ) : null}
-                  {image.status === 1 ? '缓存到图床中' : null}
+                  {image.status === 1 && image.process === 1 ? '缓存到图床中' : null}
                   {image.status === 2 ? <i className="check icon" /> : null}
                 </div>
               </div>

@@ -8,11 +8,16 @@ export default class RankTable extends Component {
     this.columns = [
       {
         title: '文章名',
-        render: (value, item) => (
-          <a target="_blank" href={`//zcwsr.com/posts/${item.id}`}>
-            {value}
-          </a>
-        ),
+        render: (value, item) => {
+          if (!value) {
+            return (<span>(文章已删除)</span>);
+          }
+          return (
+            <a target="_blank" href={`//zcwsr.com/posts/${item.id}`}>
+              {value}
+            </a>
+          );
+        },
         dataIndex: 'title'
       },
       { title: '浏览次数', dataIndex: 'count' }

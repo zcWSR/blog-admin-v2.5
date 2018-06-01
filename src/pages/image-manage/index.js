@@ -101,6 +101,12 @@ export default class ImageManage extends Component {
     alert('复制成功');
   }
 
+  @autobind
+  copyMainColor(mainColor) {
+    clipboardCopy(mainColor);
+    alert('复制成功');
+  }
+
   showInfo(image) {
     msgbox.showMessage(
       <div className="image-info-modal">
@@ -120,6 +126,15 @@ export default class ImageManage extends Component {
           <p className="image-info">
             <span className="info-name">原图大小:</span>
             {`约${this.getImageSize(image.size)} (${image.size}字节)`}
+          </p>
+          <p className="image-info">
+            <span className="info-name">主色调:</span>
+            {image.mainColor}
+            <div
+              className="main-color-box"
+              style={{ background: image.mainColor }}
+              onClick={() => this.copyImageUrl(image.mainColor)}
+            />
           </p>
           <p className="image-info">
             <span className="info-name">图片外链(压缩后):</span>
