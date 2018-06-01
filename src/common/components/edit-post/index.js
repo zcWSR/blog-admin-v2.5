@@ -46,7 +46,6 @@ export default class EditPost extends Component {
   @action
   loadPost(post) {
     if (!this.loaded) {
-      console.log('load from father comp');
       this.post = post;
       this.mde.value(`${post.section}\n<!-- more -->\n${post.rest}`);
       this.loaded = true;
@@ -57,13 +56,22 @@ export default class EditPost extends Component {
   doCheck() {
     this.checkMessage = [];
     if (!this.post.title) {
-      this.checkMessage.push('须填写"标题"');
+      this.checkMessage.push('"标题" 不可为空');
     }
     if (!this.post.category) {
-      this.checkMessage.push('须填写"类别"');
+      this.checkMessage.push('"类别" 不可为空');
+    }
+    if (this.post.bgColor && !/^#[a-fA-F0-9]{3,6}$/.test(this.post.bgColor)) {
+      this.checkMessage.push('"背景图主色调" 格式错误, 请使用16进制颜色表示');
+    }
+    if (
+      this.post.bgUrl &&
+      !/^(https?):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$/.test(this.post.bgUrl)
+    ) {
+      this.checkMessage.push('"背景图链接" 格式错误, 注意携带http或https协议头');
     }
     if (!this.mde.value()) {
-      this.checkMessage.push('须填写"内容"');
+      this.checkMessage.push('"内容" 不可为空');
     }
     return !this.checkMessage.length;
   }

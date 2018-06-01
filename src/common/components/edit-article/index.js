@@ -13,7 +13,7 @@ export default class EditArticle extends Component {
     this.mde = new SimpleMDE({
       element: this.refs.editor,
       autosave: {
-        enabled: true,
+        enabled: this.props.new,
         uniqueId: this.props.new ? 'newArticle' : 'modifyArticle',
         delay: 1000
       },
@@ -21,7 +21,9 @@ export default class EditArticle extends Component {
     });
   }
   componentWillReceiveProps(props) {
-    this.article = props.article;
+    if (props.article) {
+      this.loadArticle(props.article);
+    }
   }
 
   @observable article = {
@@ -39,19 +41,37 @@ export default class EditArticle extends Component {
   }
 
   @action
+  loadArticle(article) {
+    if (!this.loaded) {
+      this.article = article;
+      this.mde.value = article.content;
+      this.loaded = true;
+    }
+  }
+
+  @action
   doCheck() {
     this.checkMessage = [];
     if (!this.article.title) {
-      this.checkMessage.push('须填写"标题"');
+      this.checkMessage.push('"标题" 不可为空');
     }
     if (!this.article.route) {
-      this.checkMessage.push('须填写"路由"');
+      this.checkMessage.push('"路由" 不可为空');
+    }
+    if (this.article.bgColor && !/^#[a-fA-F0-9]{3,6}$/.test(this.article.bgColor)) {
+      this.checkMessage.push('"背景图主色调" 格式错误, 请使用16进制颜色表示');
+    }
+    if (
+      this.article.bgUrl &&
+      !/^(https?):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$/.test(this.article.bgUrl)
+    ) {
+      this.checkMessage.push('"背景图链接" 格式错误, 注意携带http或https协议头');
     }
     if (!this.article.shortName) {
-      this.checkMessage.push('须填写"短名称"');
+      this.checkMessage.push('"短名称" 不可为空');
     }
     if (!this.mde.value()) {
-      this.checkMessage.push('须填写"内容"');
+      this.checkMessage.push('"内容" 不可为空');
     }
     return !this.checkMessage.length;
   }
