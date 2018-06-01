@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import axios from 'axios';
 import autobind from 'autobind-decorator';
-import moment from 'moment';
 
 import Loading from 'common/components/loading';
 import msgbox from 'common/components/message-box';
@@ -27,25 +26,6 @@ export default class ArticleManage extends Component {
   }
 
   async doSearch() {
-    this.setState({ articles: [
-      {
-        id: 1,
-        title: '关于我',
-        shortName: '关于我',
-        route: 'aboutMe',
-        createAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-        updateAt: moment().format('YYYY-MM-DD HH:mm:ss')
-      },
-      {
-        id: 2,
-        title: '我的简历',
-        shortName: 'resume',
-        route: 'resume',
-        createAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-        updateAt: moment().format('YYYY-MM-DD HH:mm:ss')
-      }
-    ]
-    });
     try {
       this.setState({ loading: true });
       const meta = await axios({
@@ -63,7 +43,7 @@ export default class ArticleManage extends Component {
 
   @autobind
   edit(post) {
-    this.props.routing.push(`/edit-article/${post.id}`);
+    this.props.routing.push(`/modify-article/${post.id}`);
   }
 
   @autobind

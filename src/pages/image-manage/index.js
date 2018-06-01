@@ -47,7 +47,7 @@ export default class ImageManage extends Component {
     try {
       this.setState({ loading: true });
       const meta = await axios({
-        url: '/api/blog/img/list',
+        url: '/api/blog/imgs',
         params: { page, pageSize: this.state.pageSize }
       });
       const { pageSize, curPage, totalCount, list } = meta.data;

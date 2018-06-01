@@ -4,7 +4,10 @@ import { observer } from 'mobx-react';
 import SimpleMDE from 'simplemde';
 import autobind from 'autobind-decorator';
 
+import msgbox from 'common/components/message-box';
+
 import 'simplemde/dist/simplemde.min.css';
+
 import './index.less';
 
 @observer
@@ -13,7 +16,7 @@ export default class EditPost extends Component {
     this.mde = new SimpleMDE({
       element: this.refs.editor,
       autosave: {
-        enabled: true,
+        enabled: this.props.new,
         uniqueId: this.props.new ? 'newPost' : 'modifyPost',
         delay: 1000
       },
@@ -21,7 +24,9 @@ export default class EditPost extends Component {
     });
   }
   componentWillReceiveProps(props) {
-    this.post = props.post;
+    if (props.post) {
+      this.loadPost(props.post);
+    }
   }
 
   @observable post = {
@@ -30,14 +35,22 @@ export default class EditPost extends Component {
     labels: [],
     bgColor: '',
     bgUrl: '',
-    section: '',
-    rest: ''
+    createAt: new Date().getTime()
   }
-  @observable loading = false;
   @observable checkMessage = [];
   @computed
   get showCheckMessage() {
     return !!this.checkMessage.length;
+  }
+
+  @action
+  loadPost(post) {
+    if (!this.loaded) {
+      console.log('load from father comp');
+      this.post = post;
+      this.mde.value(`${post.section}\n<!-- more -->\n${post.rest}`);
+      this.loaded = true;
+    }
   }
 
   @action
@@ -59,18 +72,20 @@ export default class EditPost extends Component {
   doSubmit() {
     if (this.doCheck()) {
       const content = this.mde.value();
-      const { title, category, labels, bgColor, bgUrl } = this.post;
-      this.props.submit({ title, category, labels: [...labels], bgColor, bgUrl, content });
+      const { title, category, labels, bgColor, bgUrl, createAt } = this.post;
+      this.props.submit({
+        title, category, labels: [...labels], bgColor, bgUrl, content, createAt
+      });
     }
   }
 
   @autobind
-  checkLabel(event) {
-    const content = event.target.value;
-    if (event.keyCode === 13 && content) {
+  checkLabel(e) {
+    const content = e.target.value;
+    if (e.keyCode === 13 && content) {
       if (this.post.labels.indexOf(content) === -1) {
-        this.post.labels.push(content);
-        event.target.value = '';
+        this.post.labels.push(content.trim());
+        e.target.value = '';
       }
     }
   }
@@ -78,6 +93,28 @@ export default class EditPost extends Component {
   @action
   removeLabel(i) {
     this.post.labels.splice(i, 1);
+  }
+
+  @autobind
+  uploadFile() {
+    this.refs.uploadFile.click();
+  }
+
+  @autobind
+  doUploadFile(e) {
+    const file = e.target.files[0];
+    if (file.type !== 'text/markdown') {
+      msgbox.showMessage('格式不正确', '提示');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.mde.value(reader.result);
+    };
+    reader.onerror = (err) => {
+      msgbox.showMessage(err.toString() || '读取文件出错', '错误');
+    };
+    reader.readAsText(file);
   }
 
   render() {
@@ -106,7 +143,7 @@ export default class EditPost extends Component {
             <div className="field">
               <input
                 ref={'category'}
-                value={this.post.category}
+                value={this.post.category || ''}
                 onChange={() => { this.post.category = this.refs.category.value; }}
                 style={{ width: '150px' }}
               />
@@ -119,7 +156,7 @@ export default class EditPost extends Component {
             <div className="field">
               <input
                 ref={'label'}
-                onKeyUp={this.checkLabel}
+                onKeyDown={this.checkLabel}
                 style={{ width: '150px' }}
               />
             </div>
@@ -141,7 +178,7 @@ export default class EditPost extends Component {
             <div className="field">
               <input
                 ref={'bgColor'}
-                value={this.post.bgColor}
+                value={this.post.bgColor || ''}
                 onChange={() => { this.post.bgColor = this.refs.bgColor.value; }}
                 style={{ width: '100px' }}
               />
@@ -154,14 +191,19 @@ export default class EditPost extends Component {
             <div className="field">
               <input
                 ref={'bgUrl'}
-                value={this.post.bgUrl}
+                value={this.post.bgUrl || ''}
                 onChange={() => { this.post.bgUrl = this.refs.bgUrl.value; }}
                 style={{ width: '500px' }}
               />
             </div>
           </div>
         </div>
-        <div >
+        <div className="inline fields">
+          <button className="ui button primary" onClick={this.uploadFile}>从文件上传文档</button>
+          <button className="ui button red" onClick={() => { this.mde.value(''); }}>清空</button>
+          <input ref={'uploadFile'} className="for-upload" type="file" onChange={this.doUploadFile} />
+        </div>
+        <div className="editor-container">
           <textarea ref={'editor'} />
         </div>
         {
