@@ -30,8 +30,6 @@ export default (packing) => {
       'mobx',
       'mobx-react',
       'classnames',
-      'element-resize-event',
-      'echarts',
       'moment',
       'tiny-cookie',
       'axios'

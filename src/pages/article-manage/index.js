@@ -13,8 +13,8 @@ import PostTabel from './table';
 export default class ArticleManage extends Component {
   constructor(props) {
     super(props);
-    props.base.changeActiveIndex(31);
     document.title = '小文章管理';
+    props.base.changeActiveIndex(31);
     this.state = {
       loading: false,
       articles: []

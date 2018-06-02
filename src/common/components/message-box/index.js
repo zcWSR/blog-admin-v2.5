@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import autobind from 'autobind-decorator';
-import { noop } from 'lodash';
 import Modal from '../modal';
 
 const contentWrapper = content => (
@@ -20,8 +19,8 @@ class MessageBox extends Component {
       title: '提示',
       isConfirm: false
     };
-    this.confirmCancel = noop;
-    this.confirmOk = noop;
+    this.confirmCancel = () => {};
+    this.confirmOk = () => {};
   }
 
   @autobind
@@ -35,14 +34,14 @@ class MessageBox extends Component {
   cancel() {
     if (this.state.isConfirm) {
       this.confirmCancel();
-      this.confirmCancel = noop;
+      this.confirmCancel = () => {};
     }
   }
 
   @autobind
   ok() {
     this.confirmOk();
-    this.confirmOk = noop;
+    this.confirmOk = () => {};
   }
 
   showMessage(content, title) {

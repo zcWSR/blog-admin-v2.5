@@ -79,6 +79,7 @@ export default class Menu extends Component {
   componentDidMount() {}
 
   getContent() {
+    console.log(this.props.activeIndex);
     return this.state.data.map((head, i) => {
       const items = head.children.map((item) => {
         const itemClz = classnames('item', { 'active teal': item.id === this.props.activeIndex });

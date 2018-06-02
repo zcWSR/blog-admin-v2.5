@@ -27,7 +27,7 @@ axios.interceptors.response.use(null, (error) => {
       </div>
     ), '错误')
     .ok(() => {
-      if (error.errcode === -10) {
+      if (error.errcode === -2) {
         window.location = '/#/login';
       }
     });

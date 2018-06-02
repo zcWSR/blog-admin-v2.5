@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import cookie from 'tiny-cookie';
+import autobind from 'autobind-decorator';
 import Menu from './menu';
 import TopBar from './top-bar';
 import './index.less';
@@ -13,6 +14,13 @@ class Frame extends Component {
       toggle: cookie.get('toggle_menu') === 'true'
     };
     this.toggle = this.toggle.bind(this);
+  }
+
+  @autobind
+  onLogout() {
+    if (typeof this.props.onLogout === 'function') {
+      this.props.onLogout();
+    }
   }
 
   toggle() {
@@ -29,7 +37,12 @@ class Frame extends Component {
       <div>
         {
           this.props.fullscreen ||
-            <TopBar toggle={this.state.toggle} onToggleBtnClick={this.toggle} />
+            <TopBar
+              toggle={this.state.toggle}
+              onToggleBtnClick={this.toggle}
+              username={this.props.username}
+              onLogout={this.onLogout}
+            />
         }
         {
           this.props.fullscreen ||

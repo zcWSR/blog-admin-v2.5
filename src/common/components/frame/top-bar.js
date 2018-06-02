@@ -1,33 +1,12 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import axios from 'axios';
-// import jsonp from 'jsonp';
-import cookie from 'tiny-cookie';
-
-const logout = () => {
-  axios('/api/admin/logout')
-  .then(() => {
-    console.log('已登出');
-    // cookie.set('qsso_user_name', '', { expires: (new Date(32524724988935)).toGMTString() });
-    cookie.remove('token');
-    cookie.remove('userName');
-    window.location.href = '/login';
-  });
-};
+import autobind from 'autobind-decorator';
 
 export default class TopBar extends Component {
-
-  constructor() {
-    super();
-    this.state = {
-      username: ''
-    };
-  }
-
-  componentWillMount() {
-    const username = cookie.get('qsso_user_name');
-    if (username) {
-      this.setState({ username });
+  @autobind
+  logout() {
+    if (typeof this.props.onLogout === 'function') {
+      this.props.onLogout();
     }
   }
 
@@ -43,8 +22,8 @@ export default class TopBar extends Component {
           <a className="item" onClick={this.props.onToggleBtnClick}><i className="content icon large" /></a>
         </div>
         <div className="right menu">
-          <a className="item username" href="https://qunar.it/usercenter/"><i className="user icon large" />&nbsp;&nbsp;{this.state.username}</a>
-          <a className="item" onClick={logout}><i className="sign out icon large " /></a>
+          <a className="item username"><i className="user icon large" />&nbsp;&nbsp;{this.props.username}</a>
+          <a className="item" onClick={this.logout}><i className="sign out icon large " /></a>
         </div>
       </div>
     );

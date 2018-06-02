@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 import autobind from 'autobind-decorator';
-import { isFunction, indexOf } from 'lodash';
 
 class Modal extends Component {
 
@@ -26,7 +25,7 @@ class Modal extends Component {
   @autobind
   onCancel() {
     const { cancel, hideAfterCancel, onToggle } = this.props;
-    if (isFunction(cancel)) {
+    if (typeof cancel === 'function') {
       cancel();
     }
     if (hideAfterCancel) {
@@ -37,7 +36,7 @@ class Modal extends Component {
   @autobind
   onOk() {
     const { ok, hideAfterOk, onToggle } = this.props;
-    if (isFunction(ok)) {
+    if (typeof ok === 'function') {
       ok();
     }
     if (hideAfterOk) {
@@ -47,7 +46,7 @@ class Modal extends Component {
 
   @autobind
   hide(e) {
-    if (indexOf(e.target.classList, 'modals') < 0) {
+    if (!e.target.classList.contains('modals')) {
       return;
     }
     this.props.onToggle(false);
