@@ -66,7 +66,7 @@ export default class EditPost extends Component {
     }
     if (
       this.post.bgUrl &&
-      !/^(https?):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$/.test(this.post.bgUrl)
+      !/^(https?):(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/.test(this.post.bgUrl)
     ) {
       this.checkMessage.push('"背景图链接" 格式错误, 注意携带http或https协议头');
     }

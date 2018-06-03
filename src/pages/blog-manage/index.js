@@ -76,7 +76,7 @@ export default class UserManage extends Component {
     Object.keys(urlTypeCheckMap).forEach((key) => {
       const content = this.config[key];
       if (
-        !/^(https?):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$/.test(content)
+        !/^(https?):(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/.test(content)
       ) {
         this.checkMessage.push(`"${urlTypeCheckMap[key]}" 格式错误, 注意携带http或https协议头`);
       }
