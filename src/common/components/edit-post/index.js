@@ -22,6 +22,10 @@ export default class EditPost extends Component {
       toolbarTips: true,
       spellChecker: false
     });
+    if (this.props.new) {
+      this.loadFromAutoSave();
+      this.startAutoSave();
+    }
   }
   componentWillReceiveProps(props) {
     if (props.post) {
@@ -41,6 +45,33 @@ export default class EditPost extends Component {
   @computed
   get showCheckMessage() {
     return !!this.checkMessage.length;
+  }
+
+  startAutoSave() {
+    const delay = 1000 * 69 * 3;
+    setInterval(() => {
+      const forSave = JSON.stringify(
+        Object.assign({}, this.post, { content: this.mde.value() })
+      );
+      window.localStorage.setItem('newPost', forSave);
+    }, delay);
+  }
+
+  loadFromAutoSave() {
+    let autoSave = window.localStorage.getItem('newPost');
+    if (!autoSave) return;
+    autoSave = JSON.parse(autoSave);
+    this.post.title = autoSave.title;
+    this.post.category = autoSave.category;
+    this.post.labels = autoSave.labels;
+    this.post.bgColor = autoSave.bgColor;
+    this.post.bgUrl = autoSave.autoSave;
+    this.createAt = autoSave.createAt;
+    this.mde.value(autoSave.content);
+  }
+
+  clearAutoSave() {
+    window.localStorage.removeItem('newPost');
   }
 
   @action

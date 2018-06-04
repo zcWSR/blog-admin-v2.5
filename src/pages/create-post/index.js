@@ -37,6 +37,7 @@ export default class CreatePost extends Component {
           post: data
         }
       });
+      this.refs.editPost.clearAutoSave();
       msgbox.showMessage((
         <div>
           <p>创建成功</p>
@@ -56,7 +57,7 @@ export default class CreatePost extends Component {
     return (
       <div>
         <h3 className="ui header">新建博客文章</h3>
-        <EditPost new submit={data => this.doSubmit(data)} />
+        <EditPost new submit={data => this.doSubmit(data)} ref={'editPost'} />
         <Loading show={this.state.loading} />
       </div>
     );

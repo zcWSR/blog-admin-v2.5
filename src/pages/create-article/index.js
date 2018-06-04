@@ -37,6 +37,7 @@ export default class CreateArticle extends Component {
           article: data
         }
       });
+      this.refs.EditArticle.clearAutoSave();
       msgbox.showMessage((
         <div>
           <p>创建成功</p>
@@ -56,7 +57,7 @@ export default class CreateArticle extends Component {
     return (
       <div>
         <h3 className="ui header">新建小文章</h3>
-        <EditArticle new submit={data => this.doSubmit(data)} />
+        <EditArticle new submit={data => this.doSubmit(data)} ref={'EditArticle'} />
         <Loading show={this.state.loading} />
       </div>
     );
