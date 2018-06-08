@@ -5,6 +5,7 @@ import SimpleMDE from 'simplemde';
 import autobind from 'autobind-decorator';
 
 import msgbox from 'common/components/message-box';
+import PopupMessage from 'common/components/popup-message';
 
 import './index.less';
 
@@ -33,6 +34,10 @@ export default class EditPost extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   @observable post = {
     title: '',
     category: '',
@@ -48,18 +53,24 @@ export default class EditPost extends Component {
   }
 
   startAutoSave() {
-    const delay = 1000 * 69 * 3;
-    setInterval(() => {
+    const delay = 1000 * 60 * 3;
+    this.interval = setInterval(() => {
       const forSave = JSON.stringify(
         Object.assign({}, this.post, { content: this.mde.value() })
       );
       window.localStorage.setItem('newPost', forSave);
+      console.log(`post auto save compelete at ${new Date()}`);
+      this.refs.toast.show('自动保存成功');
     }, delay);
   }
 
   loadFromAutoSave() {
+    console.log('loading previous post from localstorage...');
     let autoSave = window.localStorage.getItem('newPost');
-    if (!autoSave) return;
+    if (!autoSave) {
+      console.log('previous post not found');
+      return;
+    }
     autoSave = JSON.parse(autoSave);
     this.post.title = autoSave.title;
     this.post.category = autoSave.category;
@@ -68,6 +79,7 @@ export default class EditPost extends Component {
     this.post.bgUrl = autoSave.autoSave;
     this.createAt = autoSave.createAt;
     this.mde.value(autoSave.content);
+    console.log('previous post loaded');
   }
 
   clearAutoSave() {
@@ -260,6 +272,7 @@ export default class EditPost extends Component {
         }
         <div className="ui divider" />
         <button className="ui primary button" onClick={this.doSubmit}>{this.props.new ? '创建' : '修改'}</button>
+        <PopupMessage ref="toast" />
       </div>
     );
   }

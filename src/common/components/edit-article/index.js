@@ -5,6 +5,7 @@ import SimpleMDE from 'simplemde';
 import autobind from 'autobind-decorator';
 
 import msgbox from 'common/components/message-box';
+import PopupMessage from 'common/components/popup-message';
 
 import './index.less';
 
@@ -34,6 +35,10 @@ export default class EditArticle extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   @observable
   article = {
     title: '',
@@ -50,18 +55,24 @@ export default class EditArticle extends Component {
   }
 
   startAutoSave() {
-    const delay = 1000 * 60 * 3;
-    setInterval(() => {
+    const delay = 1000 * 10 * 3;
+    this.interval = setInterval(() => {
       const forSave = JSON.stringify(
         Object.assign({}, this.article, { content: this.mde.value() })
       );
       window.localStorage.setItem('newArticle', forSave);
+      console.log(`article auto save compelete at ${new Date()}`);
+      this.refs.toast.show('自动保存成功');
     }, delay);
   }
 
   loadFromAutoSave() {
+    console.log('loading previous article from localstorage...');
     let autoSave = window.localStorage.getItem('newArticle');
-    if (!autoSave) return;
+    if (!autoSave) {
+      console.log('previous article not found');
+      return;
+    }
     autoSave = JSON.parse(autoSave);
     this.article.title = autoSave.title;
     this.article.route = autoSave.route;
@@ -69,6 +80,7 @@ export default class EditArticle extends Component {
     this.article.bgColor = autoSave.bgColor;
     this.article.bgUrl = autoSave.bgUrl;
     this.mde.value(autoSave.content);
+    console.log('previous article loaded');
   }
 
   clearAutoSave() {
@@ -257,6 +269,7 @@ export default class EditArticle extends Component {
         <button className="ui primary button" onClick={this.doSubmit}>
           {this.props.new ? '创建' : '修改'}
         </button>
+        <PopupMessage ref="toast" />
       </div>
     );
   }

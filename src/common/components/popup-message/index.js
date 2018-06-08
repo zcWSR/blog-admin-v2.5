@@ -12,29 +12,46 @@ export default class PopupMessage extends Component {
       show: false,
       display: false
     };
-
-    this.timeOuter = null;
   }
 
   LONG = 1000 * 3;
-  SHORT = 1000 * 10;
+  SHORT = 1000 * 2;
 
-  show(title, color, time, content) {
-    this.setState({ display: true, color: color || 'teal', title, content }, () => {
-      this.setState({ show: true });
+  show(params) {
+    let delayTime = this.SHORT;
+    const nextState = {};
+    if (typeof params === 'string') {
+      nextState.color = 'teal';
+      nextState.title = params;
+      nextState.content = '';
+    } else {
+      const { color, title, content, delay } = params;
+      delayTime = delay;
+      nextState.color = color;
+      nextState.title = title;
+      nextState.content = content;
+      nextState.delay = delay;
+    }
+    this.setState({ display: true }, () => {
+      setTimeout(() => {
+        this.setState(nextState, () => {
+          this.setState({ show: true });
+        });
+      }, 0);
     });
-    this.timeOuter = setTimeout(() => {
+    setTimeout(() => {
       this.hide();
-    }, time || PopupMessage.SHORT);
+    }, delayTime);
   }
 
   @autobind
   hide() {
-    clearTimeout(this.timeOuter);
-    this.setState({ show: false });
-    setTimeout(() => {
-      this.setState({ display: false });
-    }, 300);
+    if (this.state.show) {
+      this.setState({ show: false });
+      setTimeout(() => {
+        this.setState({ display: false });
+      }, 300);
+    }
   }
 
   render() {
@@ -55,7 +72,7 @@ export default class PopupMessage extends Component {
         }}
       >
         <i className="close icon" onClick={this.hide} />
-        <div className="header">{title || content}</div>
+        {!!title && <div className="header">{title}</div>}
         {!!content && <p>{content}</p>}
       </div>
     );

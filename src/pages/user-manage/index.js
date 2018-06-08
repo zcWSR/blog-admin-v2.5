@@ -136,11 +136,11 @@ export default class UserManage extends Component {
   render() {
     const changeUnBtnClz = cn('ui button primary', {
       loading: this.usernameChange.loading,
-      disabled: this.usernameChange.loading
+      disabled: this.usernameChange.loading || this.passwordChange.loading
     });
     const changePwBtnClz = cn('ui button primary', {
-      loading: this.usernameChange.loading,
-      disabled: this.usernameChange.loading
+      loading: this.passwordChange.loading,
+      disabled: this.passwordChange.loading || this.usernameChange.loading
     });
     return (
       <div>
