@@ -53,7 +53,7 @@ export default (packing) => {
     // 网站URL与模版的对应路由关系
     '^/$': '/index.html',
     // API转发
-    '^/api/(.*)': 'http://localhost:2333/$1'
+    '^/api/(.*)': 'http://admin.zcwsr.com/api/$1'
   };
 
   return p;
